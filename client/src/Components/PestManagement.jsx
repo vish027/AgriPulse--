@@ -8,7 +8,7 @@ import cropImage from "../assets/crop-protection.jpg";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-export default function PestManagementControl() {
+export default function PestManagement() {
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
