@@ -52,6 +52,7 @@ const cardsData = [
     title: "Packaging",
     description: "Eco-friendly solutions for long-lasting freshness.",
     icon: <FaBoxOpen size={40} className="text-white" />,
+    link:"/home", // <-- React Router link
   },
 ];
 
@@ -234,8 +235,8 @@ export default function AgricultureWebsite() {
         </div>
         <ul className="flex space-x-6 text-[#eefcf4] font-medium">
           <li className="hover:underline cursor-pointer">
-    <Link to="/about">About</Link>
-  </li>
+            <Link to="/about">About</Link>
+          </li>
           <li
             className="hover:underline cursor-pointer"
             onClick={() => scrollToSection("sustainability")}
@@ -271,38 +272,35 @@ export default function AgricultureWebsite() {
       {/* Cards + Center Image */}
       <div className="relative p-6 grid grid-cols-1 sm:grid-cols-2 gap-8 place-items-center">
         {cardsData.map((card, index) => {
-  const cardContent = (
-    <div
-      className="w-full max-w-[380px] min-h-[180px] p-6 border-2 border-white/60 rounded-xl text-center shadow-lg 
+          const cardContent = (
+            <div
+              className="w-full max-w-[380px] min-h-[180px] p-6 border-2 border-white/60 rounded-xl text-center shadow-lg 
                  bg-white/10 backdrop-blur-sm transition-colors duration-300 opacity-80 animate-floatSlow
                  hover:border-white cursor-pointer shine-border"
-      style={{ animationDelay: `${index * 0.4}s` }}
-    >
-      <div className="mb-4">{card.icon}</div>
-      <h3 className="text-xl font-semibold text-white mb-2">
-        {card.title}
-      </h3>
-      <p className="text-white/80">{card.description}</p>
-    </div>
-  );
+              style={{ animationDelay: `${index * 0.4}s` }}
+            >
+              <div className="mb-4">{card.icon}</div>
+              <h3 className="text-xl font-semibold text-white mb-2">
+                {card.title}
+              </h3>
+              <p className="text-white/80">{card.description}</p>
+            </div>
+          );
 
-  return card.link ? (
-    <a
-      key={index}
-      href={card.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-full flex justify-center"
-    >
-      {cardContent}
-    </a>
-  ) : (
-    <div key={index} className="w-full flex justify-center">
-      {cardContent}
-    </div>
-  );
-})}
-
+          return card.link ? (
+            <Link
+              key={index}
+              to={card.link} // <-- Use Link for internal navigation
+              className="w-full flex justify-center"
+            >
+              {cardContent}
+            </Link>
+          ) : (
+            <div key={index} className="w-full flex justify-center">
+              {cardContent}
+            </div>
+          );
+        })}
 
         <img
           src={leafImage}
@@ -442,7 +440,8 @@ export default function AgricultureWebsite() {
 
       {/* FAQ Section */}
       <FAQSection />
-            {/* Contact Form Section */}
+
+      {/* Contact Form Section */}
       <section
         id="contact-form"
         className="bg-[#0B3D20] text-white py-16 px-6 flex justify-center items-center"
@@ -456,7 +455,6 @@ export default function AgricultureWebsite() {
             method="POST"
             className="space-y-5"
           >
-            {/* Name */}
             <input
               type="text"
               name="name"
@@ -464,8 +462,6 @@ export default function AgricultureWebsite() {
               required
               className="w-full px-4 py-3 bg-[#1a5a35] text-white rounded-xl border border-white/20 focus:ring-2 focus:ring-[#6AB547] outline-none"
             />
-
-            {/* Email */}
             <input
               type="email"
               name="email"
@@ -473,8 +469,6 @@ export default function AgricultureWebsite() {
               required
               className="w-full px-4 py-3 bg-[#1a5a35] text-white rounded-xl border border-white/20 focus:ring-2 focus:ring-[#6AB547] outline-none"
             />
-
-            {/* Message */}
             <textarea
               name="message"
               rows="5"
@@ -482,8 +476,6 @@ export default function AgricultureWebsite() {
               required
               className="w-full px-4 py-3 bg-[#1a5a35] text-white rounded-xl border border-white/20 focus:ring-2 focus:ring-[#6AB547] outline-none resize-none"
             ></textarea>
-
-            {/* Button */}
             <button
               type="submit"
               className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl shadow-md text-white font-semibold hover:opacity-90 transition"
@@ -493,7 +485,6 @@ export default function AgricultureWebsite() {
           </form>
         </div>
       </section>
-
 
       {/* Footer */}
       <footer

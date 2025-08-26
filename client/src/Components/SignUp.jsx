@@ -27,7 +27,7 @@ function Signup() {
             return handleError('Name, email and password are required');
         }
         try {
-            const url = `http://localhost:8080/auth/signup`;
+            const url = `http://localhost:4000/auth/signup`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -56,7 +56,7 @@ function Signup() {
     return (
         <div
             className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
-            style={{ backgroundImage: `url(${bg})` }}
+            style={{ backgroundImage: `url(${bg}) `}}
         >
             {/* Dark overlay to lighten bg */}
             <div className="absolute inset-0 bg-black/40"></div>
@@ -119,4 +119,4 @@ function Signup() {
     )
 }
 
-export default Signup
+export default Signup
