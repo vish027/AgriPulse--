@@ -47,7 +47,7 @@ const cardsData = [
     title: "Yield Prediction",
     description: "Predict harvests with AI-powered analytics.",
     icon: <FaChartBar size={40} className="text-white" />,
-    link:"https://crop-zeta.vercel.app/",
+    link:"/prediction",
   },
   {
     title: "Packaging",

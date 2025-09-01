@@ -1,3 +1,4 @@
+// App.jsx
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import "./App.css";
@@ -40,6 +41,13 @@ import SellerLayout from "./pages/seller/SellerLayout";
 // Context
 import { AppContextProvider } from "./context/AppContext";
 import SellerLogin from "./Components/seller/SellerLogin";
+
+// ✅ New pages for Yield Prediction
+import HomePage from "./pages/HomePage";
+import RecommendationsPage from "./pages/RecommendationsPage";
+
+// ✅ Import PredictionForm from Components (not pages)
+import PredictionForm from "./Components/PredictionForm/PredictionForm";
 
 export default function App() {
   // General user authentication
@@ -102,6 +110,11 @@ export default function App() {
             <Route path="/best-seller" element={<PrivateRoute><BestSeller /></PrivateRoute>} />
             <Route path="/bottom-banner" element={<PrivateRoute><BottomBanner /></PrivateRoute>} />
             <Route path="/newsletter" element={<PrivateRoute><NewsLetter /></PrivateRoute>} />
+
+            {/* ✅ New Routes for Crop Yield Prediction */}
+            <Route path="/homepage" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+            <Route path="/prediction" element={<PrivateRoute><PredictionForm /></PrivateRoute>} />
+            <Route path="/recommendations" element={<PrivateRoute><RecommendationsPage /></PrivateRoute>} />
 
             {/* Seller Routes */}
             <Route path="/seller" element={<SellerPrivateRoute isSeller={isSeller} />}>
