@@ -74,7 +74,7 @@ const cropData = [
   },
   {
     name: "Millet",
-    image: "http://localhost:4000/images/millet.jpg",
+    image: "http://localhost:4000/images/millets.jpg",
     idealConditions: {
       nitrogen: { min: 40, max: 90 },
       phosphorus: { min: 20, max: 40 },

@@ -20,7 +20,7 @@ const Navbar = () => {
 
         {/* ✅ Left Side (Back + Logo) */}
         <div className="flex items-center gap-6">
-          <NavLink to='/' onClick={() => setOpen(false)}>
+          <NavLink to='/agriculture-Website' onClick={() => setOpen(false)}>
             <div>
               <img className="h-12" src={assets.back_icon} alt="back" />
             </div>
