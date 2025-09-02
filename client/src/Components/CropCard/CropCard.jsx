@@ -3,7 +3,7 @@ const CropCard = ({ crop, score, rank }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg">
       <div className="relative">
         <img
-        src={`http://localhost:5000${crop.image}`}
+        src={`http://localhost:4000${crop.image}`}
         alt={crop.name}
         className="w-full h-48 object-cover"
         />

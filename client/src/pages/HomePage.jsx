@@ -75,7 +75,7 @@ export default function HomePage() {
     }
 
     try {
-      await fetch("http://localhost:5000/api/soil", {
+      await fetch("http://localhost:4000/api/soil", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -84,16 +84,18 @@ export default function HomePage() {
       console.error("Failed to save soil data:", err);
     }
 
+    // Calculate crop scores
     const cropScores = cropData.map((crop) => ({
       crop,
       score: calculateScore(crop, formData),
     }));
 
     cropScores.sort((a, b) => b.score - a.score);
-    setResults(cropScores.slice(0, 3));
+    const topResults = cropScores.slice(0, 3);
+    setResults(topResults);
 
-    // Navigate to recommendations page with results
-    navigate("/recommendations", { state: { results: cropScores.slice(0, 3) } });
+    // Optional: navigate to recommendations page
+    // navigate("/recommendations", { state: { results: topResults } });
   };
 
   return (
@@ -180,6 +182,9 @@ export default function HomePage() {
               </button>
             </div>
           </form>
+
+          {/* ✅ Render PredictionResult below the form */}
+          {results.length > 0 && <PredictionResult results={results} />}
         </div>
       </div>
     </div>

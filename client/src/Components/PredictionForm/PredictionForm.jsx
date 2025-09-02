@@ -5,20 +5,26 @@ const PredictionForm = () => {
     nitrogen: '',
     phosphorus: '',
     potassium: '',
-    pH: '',
+    ph: '',          // ✅ lowercase to match backend
     rainfall: '',
     temperature: '',
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value === '' ? '' : parseFloat(value), // ✅ convert to number
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Submitting formData:", formData); // ✅ Debug
+
     try {
-      const response = await fetch("http://localhost:5000/api/soil", {
+      const response = await fetch("http://localhost:4000/api/soil", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -40,10 +46,9 @@ const PredictionForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
-      {/* Wider container */}
       <div className="max-w-5xl mx-auto">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          {/* Header Section */}
+          {/* Header */}
           <div className="bg-green-600 p-6 text-center">
             <h1 className="text-3xl font-bold text-white">Crop Yield Prediction System</h1>
             <p className="mt-2 text-green-100">
@@ -51,7 +56,7 @@ const PredictionForm = () => {
             </p>
           </div>
 
-          {/* Form Section */}
+          {/* Form */}
           <form onSubmit={handleSubmit} className="p-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {/* Nitrogen */}
@@ -106,8 +111,8 @@ const PredictionForm = () => {
                 </label>
                 <input
                   type="number"
-                  name="pH"
-                  value={formData.pH}
+                  name="ph"
+                  value={formData.ph}
                   onChange={handleChange}
                   min="0"
                   max="14"

@@ -1,45 +1,43 @@
+// server.js
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
 
-// ✅ Import routes
-import predictionRoutes from './Routes/predictionRoutes.js';
+// Import routes
 import soilRoutes from './Routes/soilRoutes.js';
 import AuthRouter from './Routes/AuthRouter.js';
 import ProductRouter from './Routes/ProductRouter.js';
+import predictionRoutes from './Routes/predictionRoutes.js';
 
-// ✅ Config
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 4000; // ✅ Force default port 4000
+const PORT = process.env.PORT || 4000;
 
-// ✅ Needed for __dirname in ES Modules
+// Needed for __dirname in ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ Middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
-
-// ✅ Serve static images
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-// ✅ MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('✅ Connected to MongoDB Atlas'))
+// MongoDB connection (make sure your .env has MONGODB_URI pointing to auth database)
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// ✅ Ping route
-app.get('/ping', (req, res) => {
-  res.send('PONG');
-});
+// Ping route
+app.get('/ping', (req, res) => res.send('PONG'));
 
-// ✅ Crops API
+// Crops API
 app.get('/api/crops', (req, res) => {
-  console.log('✅ /api/crops endpoint called');
   const cropData = [
     {
       name: "Rice",
@@ -186,22 +184,19 @@ app.get('/api/crops', (req, res) => {
   res.json(cropData);
 });
 
-
-// ✅ API Routes
-app.use('/api', predictionRoutes);
+// API Routes
 app.use('/api/soil', soilRoutes);
 app.use('/auth', AuthRouter);
 app.use('/products', ProductRouter);
+app.use('/api', predictionRoutes);
 
-// ✅ Health check
+// Health check
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'Server is running 🚀',
-    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'
+    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
   });
 });
 
-// ✅ Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-});
+// Start server
+app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
