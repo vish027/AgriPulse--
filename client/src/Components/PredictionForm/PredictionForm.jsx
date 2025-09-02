@@ -1,27 +1,30 @@
-import { useState } from 'react';
+// src/pages/PredictionForm.jsx
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PredictionForm = () => {
   const [formData, setFormData] = useState({
-    nitrogen: '',
-    phosphorus: '',
-    potassium: '',
-    ph: '',          // ✅ lowercase to match backend
-    rainfall: '',
-    temperature: '',
+    nitrogen: "",
+    phosphorus: "",
+    potassium: "",
+    ph: "", // ✅ lowercase (backend expects "ph")
+    rainfall: "",
+    temperature: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value === '' ? '' : parseFloat(value), // ✅ convert to number
+      [name]: value === "" ? "" : parseFloat(value),
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("Submitting formData:", formData); // ✅ Debug
+    console.log("Submitting formData:", formData);
 
     try {
       const response = await fetch("http://localhost:4000/api/soil", {
@@ -33,7 +36,11 @@ const PredictionForm = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("✅ Server Response:", data);
-        alert("Form submitted successfully!");
+
+        // ✅ Redirect and pass soilInput + results
+        navigate("/recommendations", {
+          state: { soilInput: data.soilInput, results: data},
+        });
       } else {
         console.error("❌ Server Error:", response.statusText);
         alert("Error submitting form");
@@ -50,7 +57,9 @@ const PredictionForm = () => {
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           {/* Header */}
           <div className="bg-green-600 p-6 text-center">
-            <h1 className="text-3xl font-bold text-white">Crop Yield Prediction System</h1>
+            <h1 className="text-3xl font-bold text-white">
+              Crop Yield Prediction System
+            </h1>
             <p className="mt-2 text-green-100">
               Enter your soil conditions to get crop recommendations
             </p>
