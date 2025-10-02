@@ -2,10 +2,29 @@ import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { assets } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
+import toast from 'react-hot-toast'
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false)
-  const { navigate, setSearchQuery, searchQuery, getCartCount } = useAppContext();
+  const { user, setUser, setShowUserLogin, navigate, setSearchQuery, searchQuery, getCartCount, axios } = useAppContext();
+
+  const logout = async () => {
+    try {
+      const { data } = await axios.get(
+  `${import.meta.env.VITE_API_URL}/api/user/logout`
+);
+
+      if (data.success) {
+        toast.success(data.message)
+        setUser(null);
+        navigate('/')
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
 
   useEffect(() => {
     if (searchQuery.length > 0) {
@@ -20,7 +39,7 @@ const Navbar = () => {
 
         {/* ✅ Left Side (Back + Logo) */}
         <div className="flex items-center gap-6">
-          <NavLink to='/agriculture-Website' onClick={() => setOpen(false)}>
+          <NavLink to='/' onClick={() => setOpen(false)}>
             <div>
               <img className="h-12" src={assets.back_icon} alt="back" />
             </div>
@@ -51,7 +70,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* ✅ Right Side (Cart only) */}
+        {/* ✅ Right Side (Cart + Login/Profile) */}
         <div className="flex items-center gap-6">
           {/* Cart */}
           <div onClick={() => navigate("/cart")} className="relative cursor-pointer hover:scale-105 transition">
@@ -60,6 +79,24 @@ const Navbar = () => {
               {getCartCount()}
             </button>
           </div>
+
+          {/* Login/Profile */}
+          {!user ? (
+            <button
+              onClick={() => setShowUserLogin(true)}
+              className="cursor-pointer px-6 py-2 bg-white text-green-700 font-medium hover:bg-gray-100 transition rounded-full shadow-md"
+            >
+              Login
+            </button>
+          ) : (
+            <div className='relative group'>
+              <img src={assets.profile_icon} className='w-10 rounded-full border-2 border-white shadow-sm' alt="profile" />
+              <ul className='hidden group-hover:block absolute top-12 right-0 bg-white shadow-lg border border-green-200 py-2.5 w-36 rounded-md text-sm z-40 animate-fadeIn'>
+                <li onClick={() => navigate("my-orders")} className='p-2 pl-3 hover:bg-green-50 cursor-pointer'>My Orders</li>
+                <li onClick={logout} className='p-2 pl-3 hover:bg-green-50 cursor-pointer'>Logout</li>
+              </ul>
+            </div>
+          )}
         </div>
 
       </nav>

@@ -47,7 +47,12 @@ const AddAddress = () => {
     const onSubmitHandler = async (e)=>{
         e.preventDefault();
         try {
-            const {data} = await axios.post('/api/address/add', {address});
+            const { data } = await axios.post(
+  `${import.meta.env.VITE_BACKEND_URL}/api/address/add`,
+  { address },
+  { withCredentials: true }
+);
+
 
             if (data.success){
                 toast.success(data.message)

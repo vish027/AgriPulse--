@@ -163,3 +163,10 @@ code {
   left: 125%;
   transition: left 0.7s ease;
 }
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color:#e6f0db ; /* Tailwind green-500 */
+}

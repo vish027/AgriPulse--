@@ -1,33 +1,29 @@
-import React from "react";
-import { categories } from "../assets/assets";
-import { useNavigate } from "react-router-dom";
+import React from 'react'
+import { categories } from '../assets/assets'
+import { useAppContext } from '../context/AppContext'
 
 const Categories = () => {
-  const navigate = useNavigate();
+  const { navigate } = useAppContext()
 
   return (
-    <div className="mt-16 text-center px-4 md:px-10 lg:px-16">
-      {/* Heading */}
-      <p className="text-2xl md:text-3xl font-medium mb-8">Categories</p>
+    <div className="mt-16">
+      <p className="text-2xl md:text-3xl font-medium">Categories</p>
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 
-                      gap-8 justify-items-center"> {/* gap-6 adds uniform spacing */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 mt-8 gap-70">
         {categories.map((category, index) => (
           <div
-  key={index}
-  className={`group cursor-pointer flex flex-col justify-center items-center 
+            key={index}
+            className={`group cursor-pointer flex flex-col justify-center items-center 
               border border-black-800 hover:shadow-xl transition-all duration-300 
-              rounded-xl w-full max-w-[200px] md:max-w-[220px] p-6
-              ${index % 5 === 0 ? "bg-green-100" :
-                index % 5 === 1 ? "bg-yellow-100" :
-                index % 5 === 2 ? "bg-blue-100" :
-                index % 5 === 3 ? "bg-pink-100" :
-                "bg-purple-100"}`}
-
+              rounded-xl w-44 h-44 md:w-52 md:h-52 p-6
+              ${index % 5 === 0 ? 'bg-green-100' : 
+                index % 5 === 1 ? 'bg-yellow-100' : 
+                index % 5 === 2 ? 'bg-blue-100' : 
+                index % 5 === 3 ? 'bg-pink-100' : 
+                'bg-purple-100'}`}
             onClick={() => {
-              navigate(`/products/${category.path.toLowerCase()}`);
-              window.scrollTo(0, 0);
+              navigate(`/products/${category.path.toLowerCase()}`)
+              scrollTo(0, 0)
             }}
           >
             <img
@@ -40,7 +36,7 @@ const Categories = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Categories;
+export default Categories 

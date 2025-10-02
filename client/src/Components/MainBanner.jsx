@@ -4,64 +4,63 @@ import { Link } from 'react-router-dom'
 
 const MainBanner = () => {
   return (
-    <div className='w-full flex justify-center mt-36 px-4'>
-      <div className='relative w-full max-w-6xl rounded-xl overflow-hidden shadow-lg'>
+    <div className='relative'>
+      {/* Large screen banner */}
+      <img 
+        src={assets.banner2} 
+        alt="banner" 
+        className='w-full hidden md:block h-[500px] object-cover' 
+      />
 
-        {/* Large screen banner */}
-        <img 
-          src={assets.banner2} 
-          alt="banner" 
-          className='hidden md:block w-full h-[360px] object-cover object-center rounded-xl' 
-        />
+      {/* Small screen banner */}
+      <img 
+        src={assets.main_banner_bg_sm} 
+        alt="banner" 
+        className='w-full md:hidden h-[250px] object-cover' 
+      />
 
-        {/* Small screen banner */}
-        <img 
-          src={assets.main_banner_bg_sm} 
-          alt="banner" 
-          className='md:hidden w-full h-[180px] object-cover object-center rounded-xl' 
-        />
+      {/* Overlay Content */}
+      <div className='absolute inset-0 flex flex-col items-center md:items-start justify-end md:justify-center pb-20 md:pb-16 px-4 md:pl-18 lg:pl-24'>
+        
+        {/* Agriculture Quote */}
+<div className="pl-1 md:pl-1">
+  <h1 className='text-black text-1xl md:text-2xl lg:text-1xl font-bold mb-2 text-center md:text-left drop-shadow-lg'>
+    🌱 "Cultivating Nature, Nourishing Life"
+  </h1>
+  <p className='text-black text-sm md:text-lg lg:text-xl max-w-xl text-center md:text-left opacity-100'>
+    Fresh, healthy, and sustainable products directly from the fields to your home.
+  </p>
+</div>
 
-        {/* Overlay Content */}
-        <div className='absolute inset-0 flex flex-col items-center md:items-start justify-center px-6 md:px-12 text-white'>
 
-          {/* Quote Section */}
-          <div className='text-center md:text-left drop-shadow-xl'>
-            <h1 className='text-2xl md:text-4xl font-bold mb-2'>
-              🌱 "Cultivating Nature, Nourishing Life"
-            </h1>
-            <p className='text-sm md:text-lg max-w-xl'>
-              Fresh, healthy, and sustainable products directly from the fields to your home.
-            </p>
-          </div>
+        {/* Shop Now Button */}
+      {/* Shop Now & Grower’s Hub Buttons Side by Side */}
+<div className='flex items-center gap-4 mt-8 font-medium'>
+  <Link 
+    to={"/seller"} 
+    className='group flex items-center gap-2 px-8 md:px-10 py-3 bg-gradient-to-r from-green-700 via-green-700 to-green-700 hover:from-green-600 hover:to-green-800 transition-all duration-300 rounded-full text-white cursor-pointer shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 animate-bounce-slow'
+  >
+    Grower’s Hub
+    <img 
+      className='md:hidden transition group-hover:translate-x-1' 
+      src={assets.white_arrow_icon} 
+      alt="arrow" 
+    />
+  </Link>
 
-          {/* Buttons */}
-          <div className='flex items-center gap-4 mt-6 font-medium'>
-            <Link 
-              to={"/seller"} 
-              className='group flex items-center gap-2 px-6 md:px-8 py-2.5 bg-green-700 hover:bg-green-800 transition rounded-full text-white shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95'
-            >
-              Grower’s Hub
-              <img 
-                className='md:hidden transition group-hover:translate-x-1' 
-                src={assets.white_arrow_icon} 
-                alt="arrow" 
-              />
-            </Link>
+  <Link 
+    to={"/products"} 
+    className='group flex items-center gap-2 px-8 md:px-10 py-3 bg-gradient-to-r from-green-700 via-green-700 to-green-700 hover:from-green-600 hover:to-green-800 transition-all duration-300 rounded-full text-white cursor-pointer shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 animate-bounce-slow'
+  >
+    Shop now
+    <img 
+      className='md:hidden transition group-hover:translate-x-1' 
+      src={assets.white_arrow_icon} 
+      alt="arrow" 
+    />
+  </Link>
+</div>
 
-            <Link 
-              to={"/products"} 
-              className='group flex items-center gap-2 px-6 md:px-8 py-2.5 bg-green-700 hover:bg-green-800 transition rounded-full text-white shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95'
-            >
-              Shop now
-              <img 
-                className='md:hidden transition group-hover:translate-x-1' 
-                src={assets.white_arrow_icon} 
-                alt="arrow" 
-              />
-            </Link>
-          </div>
-
-        </div>
       </div>
     </div>
   )

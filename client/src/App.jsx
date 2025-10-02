@@ -70,7 +70,7 @@ export default function App() {
     if (sellerToken) setIsSeller(true);
   }, []);
 
-  const SellerPrivateRoute = ({ isSeller }) => {
+  const SellerPrivateRoute = () => {
     return isSeller ? <Outlet /> : <Navigate to="/seller/login" />;
   };
 
@@ -85,7 +85,9 @@ export default function App() {
             {/* Public Routes */}
             <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
             <Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
-            <Route path="/seller/login" element={<SellerLogin setIsAuthenticated={setIsSeller} />} />
+
+            {/* ✅ Fixed: pass correct prop name */}
+            <Route path="/seller/login" element={<SellerLogin setIsSeller={setIsSeller} />} />
 
             {/* General User Private Routes */}
             <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
@@ -117,7 +119,7 @@ export default function App() {
             <Route path="/recommendations" element={<PrivateRoute><RecommendationsPage /></PrivateRoute>} />
 
             {/* Seller Routes */}
-            <Route path="/seller" element={<SellerPrivateRoute isSeller={isSeller} />}>
+            <Route path="/seller" element={<SellerPrivateRoute />}>
               <Route index element={<SellerLayout><AddProduct /></SellerLayout>} />
               <Route path="product-list" element={<SellerLayout><ProductList /></SellerLayout>} />
               <Route path="orders" element={<SellerLayout><Orders /></SellerLayout>} />

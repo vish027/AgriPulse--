@@ -9,7 +9,11 @@ const Orders = () => {
 
     const fetchOrders = async () =>{
         try {
-            const { data } = await axios.get('/api/order/seller');
+            const { data } = await axios.get(
+  `${import.meta.env.VITE_BACKEND_URL}/api/order/seller`,
+  { withCredentials: true }
+);
+
             if(data.success){
                 setOrders(data.orders)
             }else{

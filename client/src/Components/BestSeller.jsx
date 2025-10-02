@@ -1,15 +1,9 @@
 import React from "react";
 import ProductCard from "./ProductCard";
 import { useAppContext } from "../context/AppContext";
-import { useNavigate } from "react-router-dom";
 
 const BestSeller = () => {
   const { products } = useAppContext();
-  const navigate = useNavigate();
-
-  const handleProductClick = (id) => {
-    navigate(`/product-details/${id}`);
-  };
 
   return (
     <div className="mt-20 px-4 md:px-10 lg:px-16">
@@ -29,16 +23,17 @@ const BestSeller = () => {
         {products
           .filter((product) => product.inStock)
           .slice(0, 5)
-          .map((product) => (
+          .map((product, index) => (
             <div
-              key={product.id} // use unique id instead of index
-              className="transform transition duration-300 hover:scale-105 hover:shadow-lg rounded-2xl cursor-pointer"
-              onClick={() => handleProductClick(product.id)} // navigate to product details
+              key={index}
+              className="transform transition duration-300 hover:scale-105 hover:shadow-lg rounded-2xl"
             >
               <ProductCard product={product} />
             </div>
           ))}
       </div>
+
+     
     </div>
   );
 };
