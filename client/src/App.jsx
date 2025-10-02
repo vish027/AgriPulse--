@@ -1,6 +1,12 @@
 // App.jsx
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,17 +19,16 @@ import PestManagement from "./Components/PestManagement";
 import BioFertilizersPesticides from "./Components/BioFertilizersPesticides";
 import PlantDiseases from "./Components/PlantDiseases";
 import About from "./Components/About";
-
 import MainBanner from "./Components/MainBanner";
 import Categories from "./Components/Categories";
 import BestSeller from "./Components/BestSeller";
 import BottomBanner from "./Components/BottomBanner";
 import NewsLetter from "./Components/NewsLetter";
-
-// Pages
 import Login from "./Components/Login";
 import Signup from "./Components/SignUp";
+import SellerLogin from "./Components/seller/SellerLogin";
 
+// Pages
 import AddAddress from "./pages/AddAddress";
 import AllProducts from "./pages/AllProducts";
 import Cart from "./pages/Cart";
@@ -40,14 +45,14 @@ import SellerLayout from "./pages/seller/SellerLayout";
 
 // Context
 import { AppContextProvider } from "./context/AppContext";
-import SellerLogin from "./Components/seller/SellerLogin";
 
 // ✅ New pages for Yield Prediction
 import HomePage from "./pages/HomePage";
 import RecommendationsPage from "./pages/RecommendationsPage";
 
-// ✅ Import PredictionForm from Components (not pages)
+// ✅ Prediction Form Component
 import PredictionForm from "./Components/PredictionForm/PredictionForm";
+import Smart from "./Components/Smart";
 
 export default function App() {
   // General user authentication
@@ -58,8 +63,8 @@ export default function App() {
     if (token) setIsAuthenticated(true);
   }, []);
 
-  const PrivateRoute = ({ children }) => {
-    return isAuthenticated ? children : <Navigate to="/login" />;
+  const PrivateRoute = () => {
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
   };
 
   // Seller authentication
@@ -80,50 +85,94 @@ export default function App() {
         <div className="App">
           <Routes>
             {/* Root redirect */}
-            <Route path="/" element={<Navigate to="/login" />} />
+            <Route
+              path="/"
+              element={
+                isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/login" />
+              }
+            />
 
             {/* Public Routes */}
-            <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-            <Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
-
-            {/* ✅ Fixed: pass correct prop name */}
-            <Route path="/seller/login" element={<SellerLogin setIsSeller={setIsSeller} />} />
+            <Route
+              path="/login"
+              element={<Login setIsAuthenticated={setIsAuthenticated} />}
+            />
+            <Route
+              path="/signup"
+              element={<Signup setIsAuthenticated={setIsAuthenticated} />}
+            />
+            <Route
+              path="/seller/login"
+              element={<SellerLogin setIsSeller={setIsSeller} />}
+            />
 
             {/* General User Private Routes */}
-            <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
-            <Route path="/products" element={<PrivateRoute><AllProducts /></PrivateRoute>} />
-            <Route path="/products/:category" element={<PrivateRoute><ProductCategory /></PrivateRoute>} />
-            <Route path="/products/:category/:id" element={<PrivateRoute><ProductDetails /></PrivateRoute>} />
-            <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
-            <Route path="/add-address" element={<PrivateRoute><AddAddress /></PrivateRoute>} />
-            <Route path="/my-orders" element={<PrivateRoute><MyOrders /></PrivateRoute>} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/products" element={<AllProducts />} />
+              <Route path="/products/:category" element={<ProductCategory />} />
+              <Route path="/products/:category/:id" element={<ProductDetails />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/add-address" element={<AddAddress />} />
+              <Route path="/my-orders" element={<MyOrders />} />
 
-            <Route path="/agriculture-website" element={<PrivateRoute><AgricultureWebsite /></PrivateRoute>} />
-            <Route path="/irrigation" element={<PrivateRoute><IrrigationInfo /></PrivateRoute>} />
-            <Route path="/drone-technology" element={<PrivateRoute><DroneTechnology /></PrivateRoute>} />
-            <Route path="/digital-agri-tech" element={<PrivateRoute><DigitalAgriTech /></PrivateRoute>} />
-            <Route path="/pest-mgt" element={<PrivateRoute><PestManagement /></PrivateRoute>} />
-            <Route path="/bio-fertilizers-and-pesticides" element={<PrivateRoute><BioFertilizersPesticides /></PrivateRoute>} />
-            <Route path="/diseases-of-plants" element={<PrivateRoute><PlantDiseases /></PrivateRoute>} />
-            <Route path="/about" element={<PrivateRoute><About /></PrivateRoute>} />
+              {/* Agriculture Info */}
+              <Route path="/agriculture-website" element={<AgricultureWebsite />} />
+              <Route path="/irrigation" element={<IrrigationInfo />} />
+              <Route path="/drone-technology" element={<DroneTechnology />} />
+              <Route path="/digital-agri-tech" element={<DigitalAgriTech />} />
+              <Route path="/pest-mgt" element={<PestManagement />} />
+              <Route
+                path="/bio-fertilizers-and-pesticides"
+                element={<BioFertilizersPesticides />}
+              />
+              <Route path="/diseases-of-plants" element={<PlantDiseases />} />
+              <Route path="/about" element={<About />} />
 
-            <Route path="/main-banner" element={<PrivateRoute><MainBanner /></PrivateRoute>} />
-            <Route path="/categories" element={<PrivateRoute><Categories /></PrivateRoute>} />
-            <Route path="/best-seller" element={<PrivateRoute><BestSeller /></PrivateRoute>} />
-            <Route path="/bottom-banner" element={<PrivateRoute><BottomBanner /></PrivateRoute>} />
-            <Route path="/newsletter" element={<PrivateRoute><NewsLetter /></PrivateRoute>} />
+              {/* Banners & Extras */}
+              <Route path="/main-banner" element={<MainBanner />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/best-seller" element={<BestSeller />} />
+              <Route path="/bottom-banner" element={<BottomBanner />} />
+              <Route path="/newsletter" element={<NewsLetter />} />
 
-            {/* ✅ New Routes for Crop Yield Prediction */}
-            <Route path="/homepage" element={<PrivateRoute><HomePage /></PrivateRoute>} />
-            <Route path="/prediction" element={<PrivateRoute><PredictionForm /></PrivateRoute>} />
-            <Route path="/recommendations" element={<PrivateRoute><RecommendationsPage /></PrivateRoute>} />
+              {/* Crop Yield Prediction */}
+              <Route path="/homepage" element={<HomePage />} />
+              <Route path="/prediction" element={<PredictionForm />} />
+              <Route path="/recommendations" element={<RecommendationsPage />} />
+              <Route path="/smart" element={<Smart />} />
+            </Route>
 
             {/* Seller Routes */}
             <Route path="/seller" element={<SellerPrivateRoute />}>
-              <Route index element={<SellerLayout><AddProduct /></SellerLayout>} />
-              <Route path="product-list" element={<SellerLayout><ProductList /></SellerLayout>} />
-              <Route path="orders" element={<SellerLayout><Orders /></SellerLayout>} />
+              <Route
+                index
+                element={
+                  <SellerLayout>
+                    <AddProduct />
+                  </SellerLayout>
+                }
+              />
+              <Route
+                path="product-list"
+                element={
+                  <SellerLayout>
+                    <ProductList />
+                  </SellerLayout>
+                }
+              />
+              <Route
+                path="orders"
+                element={
+                  <SellerLayout>
+                    <Orders />
+                  </SellerLayout>
+                }
+              />
             </Route>
+
+            {/* 404 Page */}
+            <Route path="*" element={<h2>404 - Page Not Found</h2>} />
           </Routes>
         </div>
       </Router>

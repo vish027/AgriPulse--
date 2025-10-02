@@ -36,6 +36,7 @@ const cardsData = [
     title: "Smart Storage",
     description: "AI-monitored storage to preserve grain quality.",
     icon: <FaWarehouse size={40} className="text-white" />,
+    link:"/smart",
   },
   {
     title: "Crop Rotation",
