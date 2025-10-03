@@ -1,57 +1,65 @@
-import React, { useEffect } from "react"; // ⬅️ IMPORT useEffect
-import { useLocation } from "react-router-dom"; // ⬅️ IMPORT useLocation (optional but good practice)
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-// Import images from assets folder
-import irriImg from "../assets/irri.jpg";
+// ✅ RESTORED: Direct video import. This path MUST be correct: 
+// client/src/Components/IrrigationInfo.jsx is looking for client/src/videos/irri.mp4
+import irriVideo from "../videos/irri.mp4"; 
+
+// Import images from assets folder (These should be in src/assets)
 import dripIrrigationImg from "../assets/drip-irrigation.jpg";
 import sprinklerIrrigationImg from "../assets/sprinkler-irrigation.jpg";
 import surfaceIrrigationImg from "../assets/surface-irrigation.jpg";
 import subsurfaceIrrigationImg from "../assets/subsurface-irrigation.jpg";
 
 export default function IrrigationInfo() {
-  const location = useLocation(); // Initialize useLocation
-  
-  // 💡 FIX: Scroll the window to the top (0, 0) when the component mounts
+  const location = useLocation();
+
+  // Scrolls the window to the top (0, 0) when the component mounts
   useEffect(() => {
-    window.scrollTo(0, 0); 
-    // You can also use: window.scrollTo({ top: 0, behavior: 'smooth' }); 
-  }, [location.pathname]); // Dependency on pathname ensures it runs when navigating back to this component
-    
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const sections = [
     {
       title: "Efficient Irrigation Techniques for Sustainable Farming",
       description:
         "Proper irrigation is the backbone of productive agriculture. Using water efficiently not only maximizes crop yields but also conserves precious natural resources. Employing modern irrigation technologies helps farmers optimize water use, reduce costs, and promote environmental sustainability.",
-      imgUrl: irriImg,
-      imgAlt: "Irrigation system in a farm",
+      // 🛑 CHANGED: Use the imported variable, NOT the public string
+      mediaUrl: irriVideo, 
+      mediaType: "video",
+      mediaAlt: "Animated video of an irrigation system in a farm",
     },
     {
       title: "Drip Irrigation",
       description:
         "Delivers water directly to plant roots through a network of valves and tubes. This method reduces water wastage by minimizing evaporation and runoff. Drip irrigation is especially effective for row crops, orchards, and vineyards, promoting healthy plant growth while conserving water and fertilizer usage.",
-      imgUrl: dripIrrigationImg,
-      imgAlt: "Drip irrigation system",
+      mediaUrl: dripIrrigationImg,
+      mediaType: "image",
+      mediaAlt: "Drip irrigation system",
     },
     {
       title: "Sprinkler Irrigation",
       description:
         "Sprays water in a controlled manner over the crops, simulating natural rainfall. It's effective for a variety of crops and soil types. Sprinkler systems can be fixed or portable and allow for uniform water distribution, reducing soil erosion and providing flexibility in water scheduling.",
-      imgUrl: sprinklerIrrigationImg,
-      imgAlt: "Sprinkler irrigation system",
+      mediaUrl: sprinklerIrrigationImg,
+      mediaType: "image",
+      mediaAlt: "Sprinkler irrigation system",
     },
     {
       title: "Surface Irrigation",
       description:
         "Water flows over the soil by gravity. While simple and low cost, it requires proper leveling to avoid waterlogging and soil erosion. Types include furrow, basin, and border irrigation, suitable for flat terrains and crops like rice, wheat, and sugarcane.",
-      imgUrl: surfaceIrrigationImg,
-      imgAlt: "Surface irrigation field",
+      mediaUrl: surfaceIrrigationImg,
+      mediaType: "image",
+      mediaAlt: "Surface irrigation field",
     },
     {
       title: "Subsurface Irrigation",
       description:
         "Involves burying pipes or tubes below the soil surface, delivering water directly to roots, reducing evaporation significantly. This technique enhances water efficiency and root zone moisture control, ideal for high-value crops and areas with water scarcity concerns.",
-      imgUrl: subsurfaceIrrigationImg,
-      imgAlt: "Subsurface irrigation pipes",
+      mediaUrl: subsurfaceIrrigationImg,
+      mediaType: "image",
+      mediaAlt: "Subsurface irrigation pipes",
     },
   ];
 
@@ -59,7 +67,7 @@ export default function IrrigationInfo() {
     <main className="min-h-screen bg-gradient-to-b from-green-300 via-green-100 to-green-50 py-16 px-6 md:px-16 lg:px-32 text-[#0B3D20] flex flex-col items-center">
       {/* Main Heading with glow + shine + underline */}
       <h1 className="text-5xl md:text-6xl font-extrabold mb-8 text-center tracking-wide leading-tight relative cursor-default select-none">
-        Efficient Irrigation Techniques <br /> 
+        Efficient Irrigation Techniques <br />
         <span className="text-green-900 underline decoration-green-700 decoration-4 underline-offset-8">
           for Sustainable Farming
         </span>
@@ -84,14 +92,31 @@ export default function IrrigationInfo() {
               !isEven ? "md:flex-row-reverse" : ""
             }`}
           >
-            {/* Image with floating and hover zoom effect */}
+            {/* Media container */}
             <div className="md:w-1/2 w-full rounded-3xl overflow-hidden shadow-2xl animate-floatSlow hover:scale-105 transition-transform duration-500 cursor-pointer">
-              <img
-                src={section.imgUrl}
-                alt={section.imgAlt}
-                className="w-full h-80 md:h-96 object-cover object-center rounded-3xl border-8 border-green-700 shadow-lg"
-                loading="lazy"
-              />
+              
+             
+
+              {section.mediaType === "video" ? (
+                // Video element rendered when mediaType is "video"
+                <video
+                  src={section.mediaUrl}
+                  title={section.mediaAlt}
+                  className="w-full h-80 md:h-96 object-cover object-center rounded-3xl border-8 border-green-700 shadow-lg"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls={false}
+                />
+              ) : ( 
+                <img
+                  src={section.mediaUrl}
+                  alt={section.mediaAlt}
+                  className="w-full h-80 md:h-96 object-cover object-center rounded-3xl border-8 border-green-700 shadow-lg"
+                  loading="lazy"
+                />
+              )} 
             </div>
 
             {/* Text content with fade-in and smooth scale on hover */}
