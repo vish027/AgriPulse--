@@ -1,27 +1,37 @@
-const CropCard = ({ crop, score, rank }) => {
-  return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-      <div className="relative">
-        <img
-        src={`http://localhost:4000${crop.image}`}
-        alt={crop.name}
-        className="w-full h-48 object-cover"
-        />
-        <div className="absolute top-2 right-2 bg-agri-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-          #{rank}
+// src/CropCard/CropCard.jsx (or correct path)
+import React from 'react';
+
+const CropCard = ({ crop, score }) => {
+    // The 'rank' prop MUST NOT be used here.
+    const cardBgColor = 'bg-gray-700'; 
+
+    return (
+        <div 
+            className={`flex items-center w-full p-4 rounded-lg shadow-xl ${cardBgColor} text-white transition-transform hover:scale-[1.01]`}
+        >
+            {/* Rank badge is removed */}
+
+            {/* Image Section */}
+            <div className="flex-shrink-0 w-24 h-24 mr-4 rounded-lg overflow-hidden border-2 border-green-500/50">
+                <img
+                    src={crop.image} 
+                    alt={crop.name}
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* Text Content */}
+            <div className="flex-grow">
+                {/* Score is fixed to 2 decimals and rank badge is gone. */}
+                <p className="text-2xl font-semibold">{crop.name}</p>
+                
+                {/* Displays the clean string, e.g., (94.44% match) */}
+                <p className="text-lg font-medium text-green-300 mt-1">
+                    ({score} match) 
+                </p>
+            </div>
         </div>
-      </div>
-      <div className="p-4">
-        <h3 className="text-xl font-bold text-black mb-2">{crop.name}</h3>
-        <div className="flex items-center justify-between">
-          <span className="text-gray-600">Suitability:</span>
-          <span className="text-lg font-bold text-green-600">
-            {score ? Math.round(score * 100) : 0}%
-          </span>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default CropCard;
