@@ -33,7 +33,7 @@ import plantDiseasesImg from "../assets/plant-diseases.jpg";
 
 import "../App.css";
 
-// --- DATA ARRAYS (Unchanged for brevity) ---
+// --- DATA ARRAYS ---
 const cardsData = [
   { title: "Smart Storage", description: "AI-monitored storage to preserve grain quality.", icon: <FaWarehouse size={40} className="text-white" />, link:"/smart", },
   { title: "Crop Rotation", description: "Boost soil health and maximize yields sustainably.", icon: <FaSeedling size={40} className="text-white" />, link: "https://chat-1-4bgv.onrender.com/", },
@@ -65,7 +65,7 @@ const fadeUpVariant = {
   }),
 };
 
-const FAQSection = ({ handleRestrictedAction }) => { // Prop added for restriction
+const FAQSection = ({ handleRestrictedAction }) => {
   const faqs = [
     { question: "What is sustainable farming?", answer: "Sustainable farming involves methods that protect the environment, public health, human communities, and animal welfare while producing sufficient food.", },
     { question: "How does crop rotation benefit the soil?", answer: "Crop rotation helps improve soil fertility and reduces soil erosion by alternating crops with different nutrient needs and pest resistances.", },
@@ -89,11 +89,15 @@ const FAQSection = ({ handleRestrictedAction }) => { // Prop added for restricti
           <div
             key={index}
             className="border border-black rounded-lg overflow-hidden bg-white"
-            onClick={handleRestrictedAction} // Apply restriction to box interaction
+            // Apply restriction to the FAQ button, not the wrapper div
           >
             <button
               className="w-full flex justify-between items-center px-6 py-4 text-left text-[#0B3D20] font-semibold text-lg focus:outline-none"
-              onClick={() => toggleFAQ(index)}
+              onClick={(e) => { 
+                handleRestrictedAction(e); // Check login first
+                if (e.defaultPrevented) return; // If blocked, stop here
+                toggleFAQ(index); 
+            }}
             >
               <span>{faq.question}</span>
               <span
@@ -126,36 +130,36 @@ const FAQSection = ({ handleRestrictedAction }) => { // Prop added for restricti
 
 export default function AgricultureWebsite() {
   const [activeIndex, setActiveIndex] = useState(null);
-  // State initialization
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const location = useLocation(); 
 
-  // --- Crucial Logic: Check localStorage for token on load/navigation ---
-  useEffect(() => {
-    // 1. Scroll to top on route change
-    window.scrollTo(0, 0);
+  // --- CRITICAL FIX: Ensures state is synced with localStorage on navigation ---
+  useEffect(() => {
+    // Scroll to top on route change
+    window.scrollTo(0, 0);
 
-    // 2. Check for authentication token set by Login.jsx
-    const token = localStorage.getItem('token');
-    if (token) {
-        setIsLoggedIn(true);
-    } else {
-        setIsLoggedIn(false);
-    }
-  }, [location.pathname]);
+    // Check for authentication token set by Login.jsx
+    const token = localStorage.getItem('token');
+    if (token) {
+        setIsLoggedIn(true);
+    } else {
+        setIsLoggedIn(false);
+    }
+  }, [location.pathname]);
 
-  // Handler for actions/links that require login
+  // --- LOGIN RESTRICTION HANDLER ---
   const handleRestrictedAction = (e) => {
       if (!isLoggedIn) {
-          e.preventDefault(); // Stop the default action (navigation/click)
+          e.preventDefault(); // Stop the navigation/action
           alert("Please log in to access this feature.");
       }
+      // If isLoggedIn is TRUE, the function does nothing and the default action proceeds.
   };
 
   // Handler for logout: clear token and update state
   const handleLogout = () => {
     localStorage.removeItem('token'); // Clear token
-    setIsLoggedIn(false);
+    setIsLoggedIn(false); // Update state
     alert("You have been logged out.");
   };
 
@@ -167,7 +171,7 @@ export default function AgricultureWebsite() {
   };
 
   const scrollToSection = (id) => {
-    // Restrict scrolling to features, but allow About and Contact
+    // Check login only for restricted sections
     if (!isLoggedIn && id !== 'contact' && id !== 'about') {
       alert("Please log in to view site features.");
       return;
@@ -207,27 +211,27 @@ export default function AgricultureWebsite() {
           >
             Contact
           </li>
-          
-          {/* LOGIN/LOGOUT Button */}
-          <li>
-            {!isLoggedIn ? (
-              <Link
-                to="/login"
-                className="ml-4 px-4 py-2 bg-[#6AB547] text-[#0B3D20] font-bold rounded-full hover:bg-white transition-colors flex items-center space-x-2"
-              >
-                <FaSignInAlt />
-                <span>Login</span>
-              </Link>
-            ) : (
-              <button 
-                onClick={handleLogout} 
-                className="ml-4 px-4 py-2 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition-colors flex items-center space-x-2"
-              >
-                <FaSignOutAlt />
-                <span>Logout</span>
-              </button>
-            )}
-          </li>
+          
+          {/* LOGIN/LOGOUT Button */}
+          <li>
+            {!isLoggedIn ? (
+              <Link
+                to="/login"
+                className="ml-4 px-4 py-2 bg-[#6AB547] text-[#0B3D20] font-bold rounded-full hover:bg-white transition-colors flex items-center space-x-2"
+              >
+                <FaSignInAlt />
+                <span>Login</span>
+              </Link>
+            ) : (
+              <button 
+                onClick={handleLogout} 
+                className="ml-4 px-4 py-2 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition-colors flex items-center space-x-2"
+              >
+                <FaSignOutAlt />
+                <span>Logout</span>
+              </button>
+            )}
+          </li>
         </ul>
       </nav>
 
@@ -242,7 +246,7 @@ export default function AgricultureWebsite() {
         </p>
       </section>
 
-      {/* Cards + Center Image (Restricted) */}
+      {/* Cards + Center Image (Restricted Links) */}
       <div className="relative p-6 grid grid-cols-1 sm:grid-cols-2 gap-8 place-items-center">
         {cardsData.map((card, index) => {
           const cardContent = (
@@ -265,7 +269,7 @@ export default function AgricultureWebsite() {
               key={index}
               to={card.link} 
               className="w-full flex justify-center"
-              onClick={handleRestrictedAction} // Apply restriction
+              onClick={handleRestrictedAction} // Apply restriction to navigation
             >
               {cardContent}
             </Link>
@@ -288,7 +292,7 @@ export default function AgricultureWebsite() {
         />
       </div>
 
-      {/* Sustainable Farming Section (Restricted) */}
+      {/* Sustainable Farming Section (Restricted Interaction) */}
       <motion.section
         id="sustainability"
         className="bg-[#D1E7C2] text-[#0B3D20] py-16 px-6"
@@ -316,7 +320,7 @@ export default function AgricultureWebsite() {
               key={i}
               className="group [perspective:1000px] w-full h-60"
               variants={fadeUpVariant}
-              onClick={handleRestrictedAction} // Apply restriction
+              onClick={handleRestrictedAction} // Keep restriction on box click/flip
             >
               <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                 {/* Front Side */}
@@ -337,7 +341,7 @@ export default function AgricultureWebsite() {
         </div>
       </motion.section>
 
-      {/* Explore More Ideas Section (Restricted) */}
+      {/* Explore More Ideas Section (Restricted Links) */}
       <motion.section
         id="explore-more"
         className="bg-[#02351b] text-[#eefcf4] py-20 px-6"
@@ -381,7 +385,7 @@ export default function AgricultureWebsite() {
                 }}
                 variants={fadeUpVariant}
               >
-                <Link to={path} className="w-full h-full block" onClick={handleRestrictedAction}> {/* Apply restriction */}
+                <Link to={path} className="w-full h-full block" onClick={handleRestrictedAction}> {/* Apply restriction to navigation */}
                   <img
                     src={box.image}
                     alt={box.title}
@@ -413,10 +417,10 @@ export default function AgricultureWebsite() {
         </div>
       </motion.section>
 
-      {/* FAQ Section (Restricted) */}
+      {/* FAQ Section (Restricted Interaction) */}
       <FAQSection handleRestrictedAction={handleRestrictedAction} />
 
-      {/* Contact Form Section (Restricted) */}
+      {/* Contact Form Section (Restricted Submission) */}
       <section
         id="contact-form"
         className="bg-[#0B3D20] text-white py-16 px-6 flex justify-center items-center"
@@ -429,7 +433,7 @@ export default function AgricultureWebsite() {
             action="https://formspree.io/f/manbgypp"
             method="POST"
             className="space-y-5"
-            onSubmit={handleRestrictedAction} // Apply restriction
+            onSubmit={handleRestrictedAction} // Apply restriction to form submission
           >
             <input
               type="text"
