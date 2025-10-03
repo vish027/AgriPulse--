@@ -362,8 +362,10 @@ export default function AgricultureWebsite() {
 
         <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto px-4">
           {exploreMoreBoxes.map((box, i) => {
-            const path =
-              box.title === "Digital Agri Tech"
+            const path = 
+                box.title === "Pest Mgt Control"
+                    ? "/pest-mgt" // Corrected path to match App.jsx
+                : box.title === "Digital Agri Tech"
                 ? "/digital-agri-tech"
                 : box.title === "Bio Fertilizers and Pesticides"
                 ? "/bio-fertilizers-and-pesticides"

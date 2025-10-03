@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react"; // ⬅️ IMPORT useEffect
+import { useLocation } from "react-router-dom"; // ⬅️ IMPORT useLocation (optional but good practice)
 
 // Import images from assets folder
 import irriImg from "../assets/irri.jpg";
@@ -8,6 +9,14 @@ import surfaceIrrigationImg from "../assets/surface-irrigation.jpg";
 import subsurfaceIrrigationImg from "../assets/subsurface-irrigation.jpg";
 
 export default function IrrigationInfo() {
+  const location = useLocation(); // Initialize useLocation
+  
+  // 💡 FIX: Scroll the window to the top (0, 0) when the component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0); 
+    // You can also use: window.scrollTo({ top: 0, behavior: 'smooth' }); 
+  }, [location.pathname]); // Dependency on pathname ensures it runs when navigating back to this component
+    
   const sections = [
     {
       title: "Efficient Irrigation Techniques for Sustainable Farming",
@@ -99,9 +108,6 @@ export default function IrrigationInfo() {
           </section>
         );
       })}
-
-      {/* Contact Button with shine-border, hover glow and scale */}
-     
 
       {/* Extra info footer */}
       <p className="mt-20 max-w-4xl text-center text-sm text-green-900 opacity-80 italic">
