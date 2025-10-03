@@ -1,30 +1,39 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// ✅ IMPORT useNavigate for programmatic navigation
+import { useLocation, useNavigate } from "react-router-dom"; 
 
-// ✅ RESTORED: Direct video import. This path MUST be correct: 
-// client/src/Components/IrrigationInfo.jsx is looking for client/src/videos/irri.mp4
+// 🛑 IMPORTANT: The video file MUST be in the 'client/src/videos/' folder 
+// for the direct import to work, otherwise use the public path string solution.
 import irriVideo from "../videos/irri.mp4"; 
 
-// Import images from assets folder (These should be in src/assets)
+// Import images from assets folder
 import dripIrrigationImg from "../assets/drip-irrigation.jpg";
 import sprinklerIrrigationImg from "../assets/sprinkler-irrigation.jpg";
 import surfaceIrrigationImg from "../assets/surface-irrigation.jpg";
 import subsurfaceIrrigationImg from "../assets/subsurface-irrigation.jpg";
+// ✅ IMPORT the back button image
+import backImg from "../assets/back.png"; 
 
 export default function IrrigationInfo() {
   const location = useLocation();
+  const navigate = useNavigate(); // ✅ INITIALIZE useNavigate
 
   // Scrolls the window to the top (0, 0) when the component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // ✅ HANDLER for back navigation
+  const handleGoBack = () => {
+    // Navigates to the root path, which is assumed to be the AgricultureWebsite component
+    navigate("/"); 
+  };
+
   const sections = [
     {
       title: "Efficient Irrigation Techniques for Sustainable Farming",
       description:
         "Proper irrigation is the backbone of productive agriculture. Using water efficiently not only maximizes crop yields but also conserves precious natural resources. Employing modern irrigation technologies helps farmers optimize water use, reduce costs, and promote environmental sustainability.",
-      // 🛑 CHANGED: Use the imported variable, NOT the public string
       mediaUrl: irriVideo, 
       mediaType: "video",
       mediaAlt: "Animated video of an irrigation system in a farm",
@@ -64,7 +73,21 @@ export default function IrrigationInfo() {
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-green-300 via-green-100 to-green-50 py-16 px-6 md:px-16 lg:px-32 text-[#0B3D20] flex flex-col items-center">
+    <main className="min-h-screen bg-gradient-to-b from-green-300 via-green-100 to-green-50 py-16 px-6 md:px-16 lg:px-32 text-[#0B3D20] flex flex-col items-center relative">
+      
+      {/* ✅ BACK BUTTON ELEMENT */}
+      <button
+        onClick={handleGoBack}
+        className="absolute top-8 left-6 md:left-16 p-2 rounded-full bg-white/80 shadow-lg hover:bg-white transition-colors z-10"
+        aria-label="Go back to home page"
+      >
+        <img
+          src={backImg}
+          alt="Back"
+          className="w-8 h-8 object-contain"
+        />
+      </button>
+
       {/* Main Heading with glow + shine + underline */}
       <h1 className="text-5xl md:text-6xl font-extrabold mb-8 text-center tracking-wide leading-tight relative cursor-default select-none">
         Efficient Irrigation Techniques <br />
@@ -95,8 +118,6 @@ export default function IrrigationInfo() {
             {/* Media container */}
             <div className="md:w-1/2 w-full rounded-3xl overflow-hidden shadow-2xl animate-floatSlow hover:scale-105 transition-transform duration-500 cursor-pointer">
               
-             
-
               {section.mediaType === "video" ? (
                 // Video element rendered when mediaType is "video"
                 <video
@@ -117,6 +138,7 @@ export default function IrrigationInfo() {
                   loading="lazy"
                 />
               )} 
+              
             </div>
 
             {/* Text content with fade-in and smooth scale on hover */}
@@ -139,6 +161,7 @@ export default function IrrigationInfo() {
         Sustainable irrigation practices conserve water, improve crop quality, and help build resilient farms. Explore our irrigation techniques and take a step towards a greener future!
       </p>
 
+      {/* CSS Styles for Animations */}
       <style>{`
         @keyframes floatSlow {
           0%, 100% { transform: translateY(0); }
