@@ -121,8 +121,7 @@ export default function ESP32Data() {
           <tr><td style={styles.td}>Humidity</td><td style={styles.td}>{data.humidity} %</td></tr>
           <tr><td style={styles.td}>IR Sensor</td><td style={styles.td}>{data.ir}</td></tr>
           <tr><td style={styles.td}>Water Status</td><td style={styles.td}>{data.waterStatus}</td></tr>
-          <tr><td style={styles.td}>Water Depth Raw</td><td style={styles.td}>{data.waterRaw}</td></tr>
-          <tr><td style={styles.td}>Water Depth Voltage</td><td style={styles.td}>{data.waterVoltage} V</td></tr>
+          <tr><td style={styles.td}>Nutrient Level</td><td style={styles.td}>{data.waterPercent}%</td></tr>
         </tbody>
       </table>
     );
