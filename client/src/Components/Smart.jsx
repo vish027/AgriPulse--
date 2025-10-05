@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import bgImage from "../assets/hard.png"; // your actual background image
 
 export default function ESP32Data() {
   const [data, setData] = useState(null);
@@ -7,68 +8,90 @@ export default function ESP32Data() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const tableStyles = {
+  const styles = {
+    page: {
+      minHeight: "100vh",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundImage: `url(${bgImage})`,
+      backgroundSize: "contain", // ⬅️ keeps image scale, no zoom/stretch
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundColor: "#000", // fallback black
+      position: "relative",
+    },
+    overlay: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0, 0, 0, 0.4)", // subtle fade
+    },
     container: {
-      margin: '20px auto',
-      padding: '20px',
-      border: '1px solid #ccc',
-      borderRadius: '8px',
-      maxWidth: '500px',
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-      backgroundColor: '#f9f9f9',
-      textAlign: 'center',
+      position: "relative",
+      zIndex: 2,
+      padding: "25px 35px",
+      borderRadius: "12px",
+      maxWidth: "550px",
+      width: "90%",
+      boxShadow: "0 6px 20px rgba(0, 0, 0, 0.5)",
+      backgroundColor: "rgba(0, 0, 0, 0.65)", // transparent black
+      color: "white",
+      textAlign: "center",
+      backdropFilter: "blur(5px)", // glass effect
     },
     table: {
-      width: '100%',
-      borderCollapse: 'collapse',
-      marginTop: '15px',
-      backgroundColor: 'white',
+      width: "100%",
+      borderCollapse: "collapse",
+      marginTop: "15px",
+      backgroundColor: "rgba(255,255,255,0.1)",
     },
     th: {
-      border: '1px solid #ddd',
-      padding: '10px',
-      backgroundColor: '#4CAF50',
-      color: 'white',
+      border: "1px solid rgba(255,255,255,0.2)",
+      padding: "10px",
+      backgroundColor: "rgba(76, 175, 80, 0.8)",
+      color: "white",
     },
     td: {
-      border: '1px solid #ddd',
-      padding: '10px',
-      backgroundColor: '#e6ffe6',
+      border: "1px solid rgba(255,255,255,0.2)",
+      padding: "10px",
+      backgroundColor: "rgba(255,255,255,0.1)",
+      color: "white",
     },
     button: {
-      padding: '10px 20px',
-      fontSize: '16px',
-      cursor: 'pointer',
-      backgroundColor: '#007bff',
-      color: 'white',
-      border: 'none',
-      borderRadius: '5px',
-      margin: '0 10px',
+      padding: "10px 20px",
+      fontSize: "16px",
+      cursor: "pointer",
+      backgroundColor: "#007bff",
+      color: "white",
+      border: "none",
+      borderRadius: "5px",
+      margin: "0 10px",
     },
     backButton: {
-      padding: '10px 15px',
-      fontSize: '16px',
-      cursor: 'pointer',
-      backgroundColor: '#555',
-      color: 'white',
-      border: 'none',
-      borderRadius: '5px',
-      marginRight: '10px',
-    }
+      padding: "10px 15px",
+      fontSize: "16px",
+      cursor: "pointer",
+      backgroundColor: "#555",
+      color: "white",
+      border: "none",
+      borderRadius: "5px",
+      marginRight: "10px",
+    },
   };
 
-  // ---------------------- FETCH DATA ----------------------
   const getData = async () => {
     setOutput("Fetching data...");
     setData(null);
     setLoading(true);
-    
+
     try {
-      // Replace with your ESP32 IP
       const response = await fetch("http://10.202.111.112/data");
-      
       if (!response.ok) throw new Error("HTTP error! Status: " + response.status);
-      
+
       const fetchedData = await response.json();
       setData(fetchedData);
       setOutput("Data fetched successfully.");
@@ -81,55 +104,48 @@ export default function ESP32Data() {
     }
   };
 
-  // ---------------------- BACK BUTTON ----------------------
-  const handleBack = () => navigate('/agriculture-website');
+  const handleBack = () => navigate("/agriculture-website");
 
-  // ---------------------- RENDER TABLE ----------------------
   const renderDataTable = () => {
     if (!data) return null;
-
-    // Use the string directly from JSON
-    const irStatus = data.ir;
-
     return (
-      <table style={tableStyles.table}>
+      <table style={styles.table}>
         <thead>
           <tr>
-            <th style={tableStyles.th}>Sensor</th>
-            <th style={tableStyles.th}>Reading</th>
+            <th style={styles.th}>Sensor</th>
+            <th style={styles.th}>Reading</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td style={tableStyles.td}>Temperature</td><td style={tableStyles.td}>{data.temperature} °C</td></tr>
-          <tr><td style={tableStyles.td}>Humidity</td><td style={tableStyles.td}>{data.humidity} %</td></tr>
-          <tr><td style={tableStyles.td}>IR Sensor</td><td style={tableStyles.td}>{irStatus}</td></tr>
-          <tr><td style={tableStyles.td}>Water Status</td><td style={tableStyles.td}>{data.waterStatus}</td></tr>
-          <tr><td style={tableStyles.td}>Water Depth Raw</td><td style={tableStyles.td}>{data.waterRaw}</td></tr>
-          <tr><td style={tableStyles.td}>Water Depth Voltage</td><td style={tableStyles.td}>{data.waterVoltage} V</td></tr>
+          <tr><td style={styles.td}>Temperature</td><td style={styles.td}>{data.temperature} °C</td></tr>
+          <tr><td style={styles.td}>Humidity</td><td style={styles.td}>{data.humidity} %</td></tr>
+          <tr><td style={styles.td}>IR Sensor</td><td style={styles.td}>{data.ir}</td></tr>
+          <tr><td style={styles.td}>Water Status</td><td style={styles.td}>{data.waterStatus}</td></tr>
+          <tr><td style={styles.td}>Water Depth Raw</td><td style={styles.td}>{data.waterRaw}</td></tr>
+          <tr><td style={styles.td}>Water Depth Voltage</td><td style={styles.td}>{data.waterVoltage} V</td></tr>
         </tbody>
       </table>
     );
   };
 
-  // ---------------------- RETURN UI ----------------------
   return (
-    <div style={tableStyles.container}>
-      <h2>🌾 ESP32 Sensor Data</h2>
-
-      <div>
-        <button onClick={handleBack} style={tableStyles.backButton}>
-          &larr; Back
-        </button>
-        <button onClick={getData} style={tableStyles.button} disabled={loading}>
-          {loading ? "Loading..." : "Get Data"}
-        </button>
+    <div style={styles.page}>
+      <div style={styles.overlay}></div>
+      <div style={styles.container}>
+        <h2>🌾 ESP32 Sensor Data</h2>
+        <div>
+          <button onClick={handleBack} style={styles.backButton}>
+            &larr; Back
+          </button>
+          <button onClick={getData} style={styles.button} disabled={loading}>
+            {loading ? "Loading..." : "Get Data"}
+          </button>
+        </div>
+        <p style={{ marginTop: "15px", color: loading ? "#87CEFA" : data ? "#90EE90" : "#FF7F7F" }}>
+          {output}
+        </p>
+        {renderDataTable()}
       </div>
-
-      <p style={{ marginTop: '15px', color: loading ? '#007bff' : (data ? '#4CAF50' : '#dc3545') }}>
-        {output}
-      </p>
-
-      {renderDataTable()}
     </div>
   );
 }
