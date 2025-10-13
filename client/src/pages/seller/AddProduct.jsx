@@ -17,6 +17,14 @@ const AddProduct = () => {
         try {
             event.preventDefault();
 
+            // Fetch the token from localStorage
+            const token = localStorage.getItem('sellerToken'); // Replace with actual key used in login
+            if (!token) {
+                toast.error('You are not logged in. Please log in first.');
+                navigate && navigate('/seller/login');
+                return;
+            }
+
             const uploadedFiles = files.filter(file => file);
             const productPrice = Number(price) || 0;
             const productOfferPrice = offerPrice ? Number(offerPrice) : null;
@@ -27,45 +35,54 @@ const AddProduct = () => {
                 return;
             }
 
-            // ⚠️ VALIDATION 2: Price check (Offer Price must be less than Product Price)
+            // ⚠️ VALIDATION 2: Offer price check
             if (productOfferPrice !== null && productOfferPrice >= productPrice) {
                 toast.error('Offer Price must be less than Product Price.');
                 return;
             }
-            
-            // 1. Prepare description as a clean string
+
+            // 1. Clean description
             const features = description
                 .split('\n')
                 .filter(line => line.trim() !== '')
                 .join('\n');
 
-
-            // 2. Prepare FormData to send ALL data (mixed text fields and files)
+            // 2. Prepare FormData
             const formData = new FormData();
-
-            // Append text fields directly
             formData.append('name', name);
             formData.append('description', features);
             formData.append('category', category);
             formData.append('price', productPrice);
-            
-            // Only append offerPrice if it's provided
-            if (productOfferPrice !== null) {
-                formData.append('offerPrice', productOfferPrice);
-            }
-            
-            // 3. Append image files
+            if (productOfferPrice !== null) formData.append('offerPrice', productOfferPrice);
             uploadedFiles.forEach(file => formData.append('images', file));
 
-            // POST request
+            // ✅ Debug logs
+            console.group('🧾 Product Details Being Sent');
+            console.log({
+                name,
+                description: features,
+                category,
+                price: productPrice,
+                offerPrice: productOfferPrice,
+                images: uploadedFiles.map(f => f.name),
+            });
+            console.groupCollapsed('📦 FormData Entries');
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+            }
+            console.groupEnd();
+            console.groupEnd();
+
+            // 3. POST request
             const { data } = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}/api/product/add`,
                 formData,
                 {
-                    // 'Content-Type': 'multipart/form-data' is often auto-set with FormData, 
-                    // but it's fine to include.
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                    withCredentials: true, // MUST be true for cookie authentication
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`, // ✅ token added
+                    },
+                    // withCredentials: true, // Only needed if backend uses cookies
                 }
             );
 
@@ -85,13 +102,10 @@ const AddProduct = () => {
 
         } catch (error) {
             console.error("Error adding product:", error);
-
-            // Handle Unauthorized error (401)
             if (error.response && error.response.status === 401) {
                 toast.error("Session expired or unauthorized. Please log in again.");
                 navigate && navigate('/seller/login');
             } else {
-                // Handle other errors
                 toast.error(error.response?.data?.message || 'Failed to add product.');
             }
         }
@@ -100,7 +114,7 @@ const AddProduct = () => {
     return (
         <div className="no-scrollbar flex-1 h-full overflow-y-scroll flex flex-col">
             <form onSubmit={onSubmitHandler} className="md:p-10 p-4 space-y-5 max-w-lg">
-                
+
                 {/* Product Images */}
                 <div>
                     <p className="text-base font-medium">Product Image (Min 1)</p>
@@ -208,7 +222,6 @@ const AddProduct = () => {
                 <button type="submit" className="px-8 py-2.5 bg-primary text-white font-medium rounded cursor-pointer">
                     ADD
                 </button>
-
             </form>
         </div>
     );
