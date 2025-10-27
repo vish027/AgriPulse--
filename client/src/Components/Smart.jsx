@@ -89,7 +89,7 @@ export default function ESP32Data() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://10.202.111.112/data");
+      const response = await fetch("http://10.210.246.112/data");
       if (!response.ok) throw new Error("HTTP error! Status: " + response.status);
 
       const fetchedData = await response.json();
@@ -132,7 +132,7 @@ export default function ESP32Data() {
       <div style={styles.overlay}></div>
       <div style={styles.container}>
         <h2>🌾 ESP32 Sensor Data</h2>
-        <div>
+        <div>5555555555555555555555555555555555555555555
           <button onClick={handleBack} style={styles.backButton}>
             &larr; Back
           </button>
