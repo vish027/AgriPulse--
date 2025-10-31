@@ -9,7 +9,6 @@ import { fileURLToPath } from 'url';
 // Import routes
 import soilRoutes from './Routes/soilRoutes.js';
 import AuthRouter from './Routes/AuthRouter.js';
-import ProductRouter from './Routes/ProductRouter.js';
 import predictionRoutes from './Routes/predictionRoutes.js';
 
 dotenv.config();
@@ -187,7 +186,6 @@ app.get('/api/crops', (req, res) => {
 // API Routes
 app.use('/api/soil', soilRoutes);
 app.use('/auth', AuthRouter);
-app.use('/products', ProductRouter);
 app.use('/api', predictionRoutes);
 
 // Health check
