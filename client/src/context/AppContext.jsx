@@ -14,39 +14,39 @@ export const AppContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [searchQuery, setSearchQuery] = useState({});
 
-  // Setup axios
+  // ✅ Configure Axios
   axios.defaults.withCredentials = true;
   axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
 
-  // Fetch seller status
+  // ✅ Fetch Seller Status
   const fetchSeller = async () => {
     try {
-      const { data } = await axios.get("/api/seller/is-auth");
+      const { data } = await axios.get("/auth/is-auth");
       setIsSeller(data.success || false);
-    } catch (error) {
+    } catch {
       setIsSeller(false);
     }
   };
 
-  // Fetch user info
+  // ✅ Fetch User Info
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get("/api/user/is-auth");
+      const { data } = await axios.get("/auth/is-auth");
       if (data.success) {
         setUser(data.user || null);
         setCartItems(data.user?.cartItems || {});
       } else {
         setUser(null);
       }
-    } catch (error) {
+    } catch {
       setUser(null);
     }
   };
 
-  // Fetch all products
+  // ✅ Fetch All Products
   const fetchProducts = async () => {
     try {
-      const { data } = await axios.get("/api/product/list");
+      const { data } = await axios.get("/api/products");
       if (data.success) setProducts(data.products || []);
       else toast.error(data.message || "Failed to load products");
     } catch (error) {
@@ -54,7 +54,7 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
-  // Cart functions
+  // ✅ Cart Functions
   const addToCart = (itemId) => {
     setCartItems((prev) => {
       const newCart = { ...prev };
@@ -84,8 +84,8 @@ export const AppContextProvider = ({ children }) => {
     });
   };
 
+  // ✅ Cart Calculations
   const getCartCount = () => Object.values(cartItems).reduce((sum, qty) => sum + qty, 0);
-
   const getCartAmount = () => {
     return Object.entries(cartItems).reduce((total, [id, qty]) => {
       const item = products.find((p) => p._id === id);
@@ -94,14 +94,14 @@ export const AppContextProvider = ({ children }) => {
     }, 0);
   };
 
-  // Initial fetch
+  // ✅ Initial Data Fetch
   useEffect(() => {
     fetchUser();
     fetchSeller();
     fetchProducts();
   }, []);
 
-  // Sync cart to backend
+  // ✅ Sync Cart (Optional: ensure backend supports /api/cart/update)
   useEffect(() => {
     const updateCartBackend = async () => {
       if (!user) return;
@@ -115,6 +115,7 @@ export const AppContextProvider = ({ children }) => {
     updateCartBackend();
   }, [cartItems, user]);
 
+  // ✅ Provide context values
   const value = {
     user,
     setUser,
