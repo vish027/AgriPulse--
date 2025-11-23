@@ -132,7 +132,7 @@ export default function ESP32Data() {
       <div style={styles.overlay}></div>
       <div style={styles.container}>
         <h2>🌾 ESP32 Sensor Data</h2>
-        <div>5555555555555555555555555555555555555555555
+        <div>
           <button onClick={handleBack} style={styles.backButton}>
             &larr; Back
           </button>
