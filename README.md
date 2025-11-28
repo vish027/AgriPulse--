@@ -47,10 +47,9 @@
 | Frontend    | React (Vite), Tailwind CSS, Framer Motion, React Router                         |
 | Backend     | Node.js, Express.js                                                             |
 | Database    | MongoDB Atlas (cloud)                                                           |
-| IoT         | Arduino / ESP32, Sensors (DHT11,pest sensor,Water detector),WebSocket |
-| ML/AI       | Python (scikit-learn / TensorFlow Lite for edge), Node ML service               |
-| Hosting     | Vercel / Netlify (frontend), Heroku / Railway / DigitalOcean (backend)          |
-| Forms/Email | Formspree                                                         |
+| IoT         | Arduino / ESP32, Sensors (DHT11,pest sensor,Water detector),WebSocket           |
+| Hosting     | Render,Vercel                                                                   |
+| Forms/Email | Formspree                                                                       |
 
 ---
 
@@ -78,6 +77,7 @@
 * Keep hover/flip interactions subtle and accessible (prefers-reduced-motion support).
 
 ---
+<img width="1888" height="835" alt="image" src="https://github.com/user-attachments/assets/c04f10a6-9dbe-4a44-9692-a9bc2b39879c" />
 
 ## 🧩 Quick Dev Setup (commands)
 
