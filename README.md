@@ -12,7 +12,7 @@
 
 ---
 
-## 🚀 Brief Abstract (≈10 lines)
+## 🚀 Brief Abstract
 
 * Small-scale farmers face large post-harvest losses due to poor storage and limited market access.
 * AgriPulse is a Smart Agriculture Platform integrating IoT sensors and AI-driven analytics for end-to-end crop & storage management.
@@ -47,10 +47,10 @@
 | Frontend    | React (Vite), Tailwind CSS, Framer Motion, React Router                         |
 | Backend     | Node.js, Express.js                                                             |
 | Database    | MongoDB Atlas (cloud)                                                           |
-| IoT         | Arduino / ESP32, Sensors (DHT22, MH-Z19, vibration/pest sensor), MQTT/WebSocket |
+| IoT         | Arduino / ESP32, Sensors (DHT11,pest sensor,Water detector),WebSocket |
 | ML/AI       | Python (scikit-learn / TensorFlow Lite for edge), Node ML service               |
 | Hosting     | Vercel / Netlify (frontend), Heroku / Railway / DigitalOcean (backend)          |
-| Forms/Email | Formspree / Nodemailer                                                          |
+| Forms/Email | Formspree                                                         |
 
 ---
 
