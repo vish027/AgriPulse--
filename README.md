@@ -77,6 +77,7 @@
 * Keep hover/flip interactions subtle and accessible (prefers-reduced-motion support).
 
 ---
+## Main Dashboard
 <img width="1888" height="835" alt="image" src="https://github.com/user-attachments/assets/c04f10a6-9dbe-4a44-9692-a9bc2b39879c" />
 
 ## 🧩 Quick Dev Setup (commands)
