@@ -1,0 +1,45 @@
+{
+  "smartStorage": "ಸ್ಮಾರ್ಟ್ ಸಂಗ್ರಹ",
+  "cropRotation": "ಬೆಳೆ ಪರಿವರ್ತನೆ",
+  "yieldPrediction": "ಉತ್ಪಾದನಾ ಅಂದಾಜು",
+  "directMarket": "ಮಾರುಕಟ್ಟೆಗೆ ನೇರ ಪ್ರವೇಶ",
+
+  "protectResources": "ಸಹಜ ಸಂಪನ್ಮೂಲಗಳನ್ನು ರಕ್ಷಿಸಿ",
+  "minimizeImpact": "ಪರಿಸರದ ಮೇಲೆ ಪರಿಣಾಮವನ್ನು ಕಡಿಮೆ ಮಾಡಿ",
+  "productivity": "ದೀರ್ಘಕಾಲದ ಉತ್ಪಾದಕತೆಯನ್ನು ಹೆಚ್ಚಿಸಿ",
+
+  "irrigation": "ನೀರಾವರಿ",
+  "droneTech": "ಡ್ರೋನ್ ತಂತ್ರಜ್ಞಾನ",
+  "digitalAgriTech": "ಡಿಜಿಟಲ್ ಕೃಷಿ ತಂತ್ರಜ್ಞಾನ",
+  "pestManagement": "ಕೀಟ ನಿರ್ವಹಣೆ",
+  "bioFertilizers": "ಜೈವ ಗೊಬ್ಬರ ಮತ್ತು ಕೀಟನಾಶಕಗಳು",
+  "plantDiseases": "ಸಸ್ಯ ರೋಗಗಳು",
+
+  "about": "ನಮ್ಮ ಬಗ್ಗೆ",
+  "sustainability": "ಸಸ್ಥಿರತೆ",
+  "exploreMore": "ಇನ್ನಷ್ಟು ಅನ್ವೇಷಿಸಿ",
+  "contact": "ಸಂಪರ್ಕ",
+
+  "heroTitle": "ಮನಸ್ಸಿನೊಂದಿಗೆ ಮತ್ತು ತಂತ್ರಜ್ಞಾನದೊಂದಿಗೆ ಕೃಷಿ",
+  "heroSubtitle": "AI ಮತ್ತು ಸ್ಥಿರ ಕೃಷಿ ಪದ್ಧತಿಗಳ ಮೂಲಕ ಭವಿಷ್ಯದ ಕೃಷಿಯನ್ನು ಬೆಳೆಸುವುದು.",
+
+  "exploreIdeas": "ಇನ್ನಷ್ಟು ಆಲೋಚನೆಗಳನ್ನು ಅನ್ವೇಷಿಸಿ",
+  "exploreIdeasSubtitle": "ಸ್ಥಿರ ಕೃಷಿಗಾಗಿ ನವೀನ ತಂತ್ರಜ್ಞಾನ ಮತ್ತು ಪದ್ಧತಿಗಳನ್ನು ಕಂಡುಹಿಡಿಯಿರಿ.",
+
+  "faq": "ಪದೇ ಪದೇ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳು",
+  "sendMessage": "ಸಂದೇಶ ಕಳುಹಿಸಿ",
+
+  "login": "ಲಾಗಿನ್",
+  "logout": "ಲಾಗ್ ಔಟ್",
+
+  "letsTalk": "ಮಾತನಾಡೋಣ",
+  "yourName": "ನಿಮ್ಮ ಹೆಸರು",
+  "yourEmail": "ನಿಮ್ಮ ಇಮೇಲ್",
+  "yourMessage": "ನಿಮ್ಮ ಸಂದೇಶ",
+
+  "footerAbout": "ನಮ್ಮ ಬಗ್ಗೆ",
+  "footerPrivacy": "ಗೌಪ್ಯತೆ",
+  "footerContact": "ಸಂಪರ್ಕ",
+
+  "rightsReserved": "ಎಲ್ಲ ಹಕ್ಕುಗಳು ಉಳಿಸಲಾಗಿದೆ."
+}

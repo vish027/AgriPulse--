@@ -1,0 +1,45 @@
+{
+  "smartStorage": "Smart Storage",
+  "cropRotation": "Crop Rotation",
+  "yieldPrediction": "Yield Prediction",
+  "directMarket": "Direct Access to Market",
+
+  "protectResources": "Protect Natural Resources",
+  "minimizeImpact": "Minimize Environmental Impact",
+  "productivity": "Enhance Long-Term Productivity",
+
+  "irrigation": "Irrigation",
+  "droneTech": "Drone Technology",
+  "digitalAgriTech": "Digital Agri Tech",
+  "pestManagement": "Pest Management Control",
+  "bioFertilizers": "Bio Fertilizers and Pesticides",
+  "plantDiseases": "Diseases of Plants",
+
+  "about": "About",
+  "sustainability": "Sustainability",
+  "exploreMore": "Explore More",
+  "contact": "Contact",
+
+  "heroTitle": "Farming with Heart and Technology in Harmony",
+  "heroSubtitle": "Cultivating the future of farming through AI and sustainable practices.",
+
+  "exploreIdeas": "Explore More Ideas",
+  "exploreIdeasSubtitle": "Discover innovative agricultural techniques and tools for sustainable farming.",
+
+  "faq": "Frequently Asked Questions",
+  "sendMessage": "Send Message",
+
+  "login": "Login",
+  "logout": "Logout",
+
+  "letsTalk": "Let's Talk",
+  "yourName": "Your Name",
+  "yourEmail": "Your Email",
+  "yourMessage": "Your Message",
+
+  "footerAbout": "About",
+  "footerPrivacy": "Privacy",
+  "footerContact": "Contact",
+
+  "rightsReserved": "All rights reserved."
+}
