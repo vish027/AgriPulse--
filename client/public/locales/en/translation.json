@@ -4,11 +4,16 @@
   "yieldPrediction": "Yield Prediction",
   "directMarket": "Direct Access to Market",
 
+  "smartStorageDesc": "AI-monitored storage to preserve grain quality.",
+  "cropRotationDesc": "Boost soil health and maximize yields sustainably.",
+  "yieldPredictionDesc": "Predict harvests with AI-powered analytics.",
+  "directMarketDesc": "Eco-friendly solutions for long-lasting freshness.",
+
   "protectResources": "Protect Natural Resources",
   "minimizeImpact": "Minimize Environmental Impact",
   "productivity": "Enhance Long-Term Productivity",
 
-  "irrigation": "Irrigation",
+  "irrigation": "Irrrigation",
   "droneTech": "Drone Technology",
   "digitalAgriTech": "Digital Agri Tech",
   "pestManagement": "Pest Management Control",
