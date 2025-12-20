@@ -350,13 +350,18 @@ export default function AgricultureWebsite() {
         <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto px-4">
           {exploreMoreBoxes.map((box, i) => {
             const path =
-              box.title === "pestManagement"
-                ? "/pest-mgt"
-                : box.title === "digitalAgriTech"
-                ? "/digital-agri-tech"
-                : box.title === "bioFertilizers"
-                ? "/bio-fertilizers-and-pesticides"
-                : "/" + box.title.toLowerCase().replace(/\s+/g, "-");
+  box.title === "pestManagement"
+    ? "/pest-mgt"
+    : box.title === "digitalAgriTech"
+    ? "/digital-agri-tech"
+    : box.title === "bioFertilizers"
+    ? "/bio-fertilizers-and-pesticides"
+    : box.title === "droneTech"
+    ? "/drone-technology"
+    : box.title === "plantDiseases"
+    ? "/diseases-of-plants"
+    : "/" + box.title.toLowerCase();
+
 
             return (
               <motion.div
