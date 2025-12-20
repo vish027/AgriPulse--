@@ -437,9 +437,14 @@ export default function AgricultureWebsite() {
           </div>
         </div>
 
-        <div className="flex justify-center md:justify-end mt-6 md:mt-0">
-          <img src={logo} alt="Agriculture Logo" className="h-16 w-16 object-contain border-2 border-white rounded-full" />
-        </div>
+        <div className="bg-white p-1 rounded-full">
+  <img
+    src={logo}
+    alt="Agriculture Logo"
+    className="h-14 w-14 object-contain rounded-full"
+  />
+</div>
+
 
       </footer>
 
