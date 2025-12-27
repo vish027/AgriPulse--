@@ -1,3 +1,4 @@
+//PredictionResult.jsx
 import React from 'react';
 import { useLocation, useNavigate } from "react-router-dom"; 
 import CropCard from "../CropCard/CropCard";
@@ -15,7 +16,7 @@ const PredictionResult = () => {
             <div 
                 className="h-screen flex items-center justify-center relative"
                 style={{
-                    backgroundImage: `url(${predImage})`,
+                    backgroundImage: `url(${bgImage})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundAttachment: 'fixed'
@@ -41,14 +42,16 @@ const PredictionResult = () => {
         let cropImage = res.image ?? res.crop?.image ?? null;
 
         // 🎯 FIX: Apply formatting to exactly 2 decimal places (e.g., 0.9444 -> 94.44)
-        const formattedScore = parseFloat(score * 100).toFixed(2);
+        const percentageScore = Math.round(score * 100); 
+        console.log("TOP RESULTS 👉", topThreeResults);
+
         
         return { 
             crop: { 
                 name: cropName, 
                 image: cropImage
             }, 
-            score: `${formattedScore}%`, // Score sent as "XX.XX%"
+            score: percentageScore, 
             rawScore: score
         };
     });

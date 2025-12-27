@@ -1,4 +1,4 @@
-// src/pages/RecommendationsPage.jsx
+//Recommendations.jsx
 import { useLocation, useNavigate } from "react-router-dom";
 // Import the image from the src/assets folder
 import backgroundImage from "../assets/pred.png";
@@ -23,9 +23,9 @@ export default function RecommendationsPage() {
       className="min-h-screen px-4 sm:px-6 lg:px-8 bg-cover bg-center relative"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
       }}
     >
       {/* Overlay for background image darkening */}
@@ -90,7 +90,7 @@ export default function RecommendationsPage() {
                   <h3 className="text-2xl font-bold text-green-300 z-10">
                     {crop.crop.name}{" "}
                     <span className="text-sm text-gray-300">
-                      ({crop.score.toFixed(2)}% match)
+                      ({Math.round(crop.score * 100)}% match)
                     </span>
                   </h3>
                   <p className="text-sm text-gray-200 mt-2 leading-relaxed">

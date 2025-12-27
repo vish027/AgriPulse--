@@ -1,4 +1,3 @@
-// src/CropCard/CropCard.jsx (or correct path)
 import React from 'react';
 
 const CropCard = ({ crop, score }) => {
@@ -27,7 +26,7 @@ const CropCard = ({ crop, score }) => {
                 
                 {/* Displays the clean string, e.g., (94.44% match) */}
                 <p className="text-lg font-medium text-green-300 mt-1">
-                    ({score} match) 
+                    ({score}% match) 
                 </p>
             </div>
         </div>
