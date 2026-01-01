@@ -89,7 +89,7 @@ export default function ESP32Data() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://10.118.167.112/data");
+      const response = await fetch("http://10.68.94.112/data");
       if (!response.ok) throw new Error("HTTP error! Status: " + response.status);
 
       const fetchedData = await response.json();
