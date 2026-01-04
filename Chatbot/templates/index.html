@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌾 Crop Rotation</title>
+
+  <!-- ✅ Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-green-50 min-h-screen flex flex-col font-sans">
+
+  <!-- ✅ Navbar (Fixed) -->
+  <nav class="fixed top-0 left-0 w-full bg-green-800 text-white py-4 shadow-lg z-50">
+    <div class="container mx-auto flex justify-between items-center px-6">
+      <button onclick="history.back()" 
+              class="bg-white/10 hover:bg-white/30 border border-white rounded-md px-4 py-2 text-sm transition">
+        ⬅ Back
+      </button>
+      <h1 class="text-2xl md:text-3xl font-bold text-center flex-1">🌾 Crop Rotation</h1>
+    </div>
+  </nav>
+
+  <!-- ✅ Main Layout -->
+  <div class="flex flex-1 mt-16">
+    
+    <!-- 🌿 Left: Crop Rotation Info -->
+    <div class="flex-1 p-6 overflow-y-auto space-y-6 mr-96">
+      
+      <!-- Description Card -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 border border-green-200">
+        <h2 class="text-2xl font-semibold text-green-800 mb-3">🌱 Description</h2>
+        <p class="text-gray-700 leading-relaxed">
+          Crop rotation is the scientific practice of growing different types of crops in the same field across different seasons or years. 
+          Instead of planting the same crop continuously, farmers change the crop type to improve soil health, prevent pests and diseases, 
+          and increase overall yield.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mt-4">
+          <video src="static/videoplayback.mp4" controls autoplay muted loop class="rounded-xl w-2/5 h-auto"></video>
+          <video src="static/videoplayback8.mp4" controls autoplay muted loop class="rounded-xl w-2/5 h-auto"></video>
+        </div>
+      </div>
+
+      <!-- Benefits Card -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 border border-green-200">
+        <h2 class="text-2xl font-semibold text-green-800 mb-3">🌾 Benefits of Crop Rotation</h2>
+        <ul class="list-disc pl-6 text-gray-700 space-y-1">
+          <li>Improves soil health by replenishing nutrients.</li>
+          <li>Breaks pest and disease cycles naturally.</li>
+          <li>Enhances water use efficiency.</li>
+          <li>Reduces dependency on chemical fertilizers.</li>
+        </ul>
+
+        <div class="flex flex-wrap gap-4 mt-4">
+          <video src="static/videoplayback1.mp4" controls autoplay muted loop class="rounded-xl w-2/5 h-auto"></video>
+          <video src="static/videoplayback2.mp4" controls autoplay muted loop class="rounded-xl w-2/5 h-auto"></video>
+        </div>
+      </div>
+
+      <!-- Examples Card -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 border border-green-200">
+        <h2 class="text-2xl font-semibold text-green-800 mb-3">🔄 Examples of Crop Rotation</h2>
+        <div class="space-y-1 text-gray-700">
+          <p><b>Wheat → Chickpea, Mustard</b></p>
+          <p><b>Rice → Green Gram, Cowpea</b></p>
+          <p><b>Maize → Beans, Groundnut</b></p>
+        </div>
+
+        <div class="flex flex-wrap gap-4 mt-4">
+          <video src="static/videoplayback5.mp4" controls autoplay muted loop class="rounded-xl w-2/5 h-auto"></video>
+           <video src="static/videoplayback7.mp4" controls autoplay muted loop class="rounded-xl w-2/5 h-auto"></video>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="bg-green-800 text-white text-center py-3 rounded-lg shadow-md">
+        © 2025 Crop Rotation Project | Designed with 🌱
+      </footer>
+    </div>
+
+    <!-- 🤖 Right: Chatbot (Fixed Below Navbar) -->
+    <div class="fixed right-0 top-16 bottom-0 w-96 bg-[#0b0b0b] text-white flex flex-col shadow-2xl border-l-2 border-green-800 z-40">
+
+      <!-- Header -->
+      <div class="bg-green-800 text-white text-center py-4 text-xl font-semibold rounded-t-xl">
+        🌿 Agriplay Chatbot 🌿
+      </div>
+
+      <!-- Chat Box -->
+      <div id="chat-box" class="flex-1 overflow-y-auto p-4 space-y-3">
+  <div class="bg-[#16213E] text-gray-100 p-3 rounded-xl">
+    <b>agribot:</b><br> Hello! I can suggest crop rotations.<br>
+    <span class="text-gray-300 text-sm">Try asking:</span>
+    <ul class="list-disc list-inside text-sm mt-1 text-gray-300">
+      <li class="cursor-pointer hover:text-green-400 transition" onclick="insertSuggestion('What should I grow after rice?')">
+        What should I grow after rice?
+      </li>
+      <li class="cursor-pointer hover:text-green-400 transition" onclick="insertSuggestion('Best soil for wheat')">
+        Best soil for wheat
+      </li>
+      <li class="cursor-pointer hover:text-green-400 transition" onclick="insertSuggestion('Which crops can I grow in kharif season?')">
+        Which crops can I grow in kharif season?
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Input Area -->
+<div class="bg-[#0b0b0b] border-t border-gray-700 p-3 flex items-center">
+  <input
+    id="user-input"
+    type="text"
+    placeholder="Type your message..."
+    class="flex-1 bg-[#141414] text-white border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+  />
+  <button
+    id="send-btn"
+    class="ml-2 bg-green-600 hover:bg-green-700 text-white p-2 rounded-full transition"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>
+</div>
+</div>
+
+<!-- ✅ Chatbot Functionality -->
+<script>
+  function insertSuggestion(text) {
+    const inputField = document.getElementById("user-input");
+    inputField.value = text;
+    inputField.focus();
+  }
+
+  document.getElementById("send-btn").addEventListener("click", sendMessage);
+  document.getElementById("user-input").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") sendMessage();
+  });
+
+  async function sendMessage() {
+    const inputField = document.getElementById("user-input");
+    const chatBox = document.getElementById("chat-box");
+    const userMessage = inputField.value.trim();
+    if (!userMessage) return;
+
+    chatBox.innerHTML += `
+      <div class="text-right my-2">
+        <span class="inline-block bg-green-600 px-3 py-2 rounded-xl text-sm">
+          <b>You:</b> ${userMessage}
+        </span>
+      </div>
+    `;
+    inputField.value = "";
+
+    const tempId = "bot-temp";
+    chatBox.innerHTML += `
+      <div id="${tempId}" class="text-left my-2 text-gray-500 italic">
+        agribot is typing...
+      </div>
+    `;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      const data = await response.json();
+      document.getElementById(tempId)?.remove();
+
+      chatBox.innerHTML += `
+        <div class="text-left my-2">
+          <span class="inline-block bg-gray-200 text-gray-800 px-3 py-2 rounded-xl text-sm">
+            <b>agribot:</b><br>${data.reply}
+          </span>
+        </div>
+      `;
+    } catch {
+      document.getElementById(tempId)?.remove();
+      chatBox.innerHTML += `
+        <div class="text-left my-2 text-red-600">
+          <b>Error:</b> Unable to connect to server.
+        </div>
+      `;
+    }
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
+
+</body>
+</html>

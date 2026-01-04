@@ -37,7 +37,7 @@ import "../App.css";
 // --- DATA ARRAYS ---
 const cardsData = [
   { title: "smartStorage", description: "AI-monitored storage to preserve grain quality.", icon: <FaWarehouse size={40} className="text-white" />, link:"/smart" },
-  { title: "cropRotation", description: "Boost soil health and maximize yields sustainably.", icon: <FaSeedling size={40} className="text-white" />, link: "https://chhatbot-2.onrender.com/" },
+  { title: "cropRotation", description: "Boost soil health and maximize yields sustainably.", icon: <FaSeedling size={40} className="text-white" />, link: "http://127.0.0.1:5000/" },
   { title: "yieldPrediction", description: "Predict harvests with AI-powered analytics.", icon: <FaChartBar size={40} className="text-white" />, link:"/prediction" },
   { title: "directMarket", description: "Eco-friendly solutions for long-lasting freshness.", icon: <FaBoxOpen size={40} className="text-white" />, link:"/shop" }
 ];
