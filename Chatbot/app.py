@@ -21,7 +21,7 @@ app = Flask(__name__)
 # genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Option 2 (Temporary – for local testing only)
-genai.configure(api_key="AIzaSyATl_g_sz3dl_soK5hOpkRlobf7Sw9Wwlo")
+genai.configure(api_key="AIzaSyDDpBYzc4l09wK3tRZ1ovRPX1XVSjlyZvs")
 
 # ------------------------------------------------------------
 # 🤖 Gemini Model
